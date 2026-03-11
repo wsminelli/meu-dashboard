@@ -5,59 +5,152 @@ const fmt = (v) =>
   Number(v).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
 const MAPA = {
-  1101: { grupo: "materia_prima",  label: "COMPRA P/ INDUSTRIA OU PROD RURAL" },
-  1401: { grupo: "materia_prima",  label: "COMPRA P/ IND OU PROD RURAL C/ ST" },
-  1151: { grupo: "compras_merc",   label: "COMPRA PARA COMERCIALIZACAO (1102)" },
-  1152: { grupo: "compras_merc",   label: "COMPRA P/ COMERCIALIZACAO (2102)" },
-  1402: { grupo: "compras_merc",   label: "COMPRA P/ COMERCIALIZACAO C/ ST (1403)" },
-  9118: { grupo: "compras_merc",   label: "AQUISICAO DE PRODUTOR RURAL (R-2055)" },
-  1702: { grupo: "transf_ent",     label: "TRANSFERENCIA P/ COMERCIALIZACAO (1152)" },
-  1406: { grupo: "transf_ent",     label: "TRANSFERENCIA P/ COMERCIAL C/ ST (1409)" },
-  1605: { grupo: "transf_ent",     label: "TRANSFERENCIA COMBU/LUBRIF P/ COM (1659)" },
-  1251: { grupo: "dev_ent",        label: "DEVOLUCAO DE VENDA MERCADO ADQ 3 (1202)" },
-  1408: { grupo: "dev_ent",        label: "DEVOLUCAO DE VENDA MERCA 3 C/ ST (1411)" },
-  1608: { grupo: "dev_ent",        label: "DEVOLUCAO VDA COM/LUB P/ C. FINAL (1662)" },
-  1917: { grupo: "bonus",          label: "ENTRADA BONIFICACAO/DOACAO/BRINDE (1910)" },
-  1302: { grupo: "energia",        label: "COMPRA E. ELETR POR ESTABELEC IND (1252)" },
-  1303: { grupo: "energia",        label: "COMPRA E. ELETR POR ESTABELEC COM (1253)" },
-  1404: { grupo: "uso_consumo",    label: "COMPRA MERCA P/ USO OU CONS C/ ST (1407)" },
-  1506: { grupo: "uso_consumo",    label: "COMPRA MERCA P/ USO OU CONSUMO (1556)" },
-  1603: { grupo: "individuais",    label: "COMPRA COMBU/LUBR P/ CONSUM FINAL (1653)" },
-  1336: { grupo: "individuais",    label: "AQUIS SERV COMUNICACAO P/ EST COM (1303)" },
-  1933: { grupo: "individuais",    label: "OUTRA ENTRADA MERCAD/PREST SERVIC (1949)" },
-  1938: { grupo: "individuais",    label: "CONTABILIDADE, INCLUSIVE SERVICOS" },
-  9119: { grupo: "individuais",    label: "TICKET REFEICAO" },
-  9120: { grupo: "individuais",    label: "VIGILANCIA, SEGURANCA OU MONITORAMENTO" },
-  9113: { grupo: "vendas",         label: "VENDAS SEM ST - REDUCOES Z (9113)" },
-  9114: { grupo: "vendas",         label: "VENDAS COM ST ICMS - REDUCOES Z (9114)" },
-  5151: { grupo: "vendas",         label: "VENDA MERCADORIA ADQ OU RECEBI 3 (5102)" },
-  5404: { grupo: "vendas",         label: "VDA MERC ADQ 3 C/ ST SUBSTITUIDO (5405)" },
-  5606: { grupo: "vendas",         label: "VENDA COMBUST/LUBRIF CONSUM FINAL (5656)" },
-  5702: { grupo: "transf_sai",     label: "TRANSFERENCIA MERC ADQ OU RECE 3 (5152)" },
-  5406: { grupo: "transf_sai",     label: "TRANSFERENCIA MERCADORIA C/ ST (5409)" },
-  5609: { grupo: "transf_sai",     label: "TRANSFERENCIA COMBU/LUBRIF ADQ 3 (5659)" },
-  5251: { grupo: "dev_sai",        label: "DEVOLUCAO COMPRA P/ COMERCIALIZAC (5202)" },
-  5252: { grupo: "dev_sai",        label: "DEVOLUCAO COMPRA P/ COMERCIALIZAC (6202)" },
-  5408: { grupo: "dev_sai",        label: "DEVOLUCAO COMP P/ COMERCIAL C/ ST (5411)" },
-  1369: { grupo: "individuais",    label: "AQUIS SERV TRANSPORTE P/ ESTAB COM (1353)" },
-  2110: { grupo: "individuais",    label: "HOSPITAIS, CLINICAS E LABORATORIOS" },
+  // ── MATÉRIA-PRIMA / PROD. RURAL (cfops 1101/2101) ──
+  1:    { grupo: "materia_prima", label: "AQUISICAO DE PROD RURAL - FUNRURAL (1101)" },
+  2:    { grupo: "materia_prima", label: "AQUISICAO DE PROD RURAL - SENAR (1101)" },
+  5:    { grupo: "materia_prima", label: "COMPRA P/ INDUSTRIA - INSUMOS (1101)" },
+  6:    { grupo: "materia_prima", label: "COMPRA P/ INDUSTRIA - INSUMOS (2101)" },
+  1101: { grupo: "materia_prima", label: "AQUISICAO DE PROD RURAL - PJ (1101)" },
+
+  // ── COMPRAS DE MERCADORIA ──
+  1151: { grupo: "compras_merc", label: "COMPRA PARA COMERCIALIZACAO (1102)" },
+  1152: { grupo: "compras_merc", label: "COMPRA P/ COMERCIALIZACAO (2102)" },
+  1402: { grupo: "compras_merc", label: "COMPRA P/ COMERCIALIZACAO C/ ST (1403)" },
+  9118: { grupo: "compras_merc", label: "AQUISICAO DE PRODUTOR RURAL (R-2055)" },
+
+  // ── TRANSFERÊNCIAS ENTRADA ──
+  1702: { grupo: "transf_ent", label: "TRANSFERENCIA P/ COMERCIALIZACAO (1152)" },
+  1406: { grupo: "transf_ent", label: "TRANSFERENCIA P/ COMERCIAL C/ ST (1409)" },
+  1605: { grupo: "transf_ent", label: "TRANSFERENCIA COMBU/LUBRIF P/ COM (1659)" },
+
+  // ── DEVOLUÇÕES DE ENTRADA (1201/2201) ──
+  1201: { grupo: "dev_ent", label: "DEVOLUCAO DE VENDA PROD ESTABELEC (1201)" },
+  1202: { grupo: "dev_ent", label: "DEVOLUCAO DE VENDA PROD ESTABELEC (2201)" },
+  1251: { grupo: "dev_ent", label: "DEVOLUCAO DE VENDA MERCADO ADQ 3 (1202)" },
+  1408: { grupo: "dev_ent", label: "DEVOLUCAO DE VENDA MERCA 3 C/ ST (1411)" },
+  1608: { grupo: "dev_ent", label: "DEVOLUCAO VDA COM/LUB P/ C. FINAL (1662)" },
+
+  // ── BONIFICAÇÃO ──
+  1917: { grupo: "bonus", label: "ENTRADA BONIFICACAO/DOACAO/BRINDE (1910)" },
+
+  // ── ENERGIA ELÉTRICA ──
+  1302: { grupo: "energia", label: "COMPRA E. ELETR POR ESTABELEC IND (1252)" },
+  1303: { grupo: "energia", label: "COMPRA E. ELETR POR ESTABELEC COM (1253)" },
+
+  // ── USO E CONSUMO (1407 / 1556 / 2556) ──
+  1404: { grupo: "uso_consumo", label: "COMPRA MERCA P/ USO OU CONS C/ ST (1407)" },
+  1506: { grupo: "uso_consumo", label: "COMPRA MERCA P/ USO OU CONSUMO (1556)" },
+  1516: { grupo: "uso_consumo", label: "COMPRA MERCA P/ USO OU CONSUMO (2556)" },
+  9149: { grupo: "uso_consumo", label: "COMPRA UNIFORMES E EPI - FABRICA (1556)" },
+  9150: { grupo: "uso_consumo", label: "COMPRA UNIFORMES E EPI - FABRICA (2556)" },
+  9151: { grupo: "uso_consumo", label: "COMPRA MAT LIMPEZA/DESINFEC FABR (1556)" },
+  9153: { grupo: "uso_consumo", label: "COMPRA MAT LIMPEZA/DESINFEC FABR (1407)" },
+  9154: { grupo: "uso_consumo", label: "COMPRA MAN MAQ EQUIP E INST FABR (1556)" },
+  9155: { grupo: "uso_consumo", label: "COMPRA MAN MAQ EQUIP E INST FABR (1407)" },
+  9157: { grupo: "uso_consumo", label: "COMPRA MAT COPA COZINHA ALIMENT (1556)" },
+  9158: { grupo: "uso_consumo", label: "COMPRA MAT COPA COZINHA ALIMENT (1407)" },
+  9159: { grupo: "uso_consumo", label: "COMPRA MANUT E CONSERV VEICULOS (1556)" },
+  9160: { grupo: "uso_consumo", label: "COMPRA MANUT E CONSERV VEICULOS (1407)" },
+  9161: { grupo: "uso_consumo", label: "COMPRA MANUT E CONSERV VEICULOS (2556)" },
+  9163: { grupo: "uso_consumo", label: "COMPRA MAT HIGIENE E LIMPEZA (1556)" },
+  9164: { grupo: "uso_consumo", label: "COMPRA MAT HIGIENE E LIMPEZA (1407)" },
+  9165: { grupo: "uso_consumo", label: "COMPRA MATERIAL DE ESCRITÓRIO (1556)" },
+  9167: { grupo: "uso_consumo", label: "COMPRA MAT MAN EQUIP INFORMATICA (1556)" },
+  9168: { grupo: "uso_consumo", label: "COMPRA MAT MAN EQUIP INFORMATICA (1407)" },
+  9186: { grupo: "uso_consumo", label: "COMPRA MAN MAQ EQUIP E INST FABR (2556)" },
+  9188: { grupo: "uso_consumo", label: "COMPRA MATERIAL DE ESCRITÓRIO (2556)" },
+  9193: { grupo: "uso_consumo", label: "COMPRA MAT HIGIENE E LIMPEZA (2556)" },
+  9194: { grupo: "uso_consumo", label: "COMPRA MAT DE ARMAZ/TRANSPORTE (2556)" },
+  9206: { grupo: "uso_consumo", label: "COMPRA MATERIAL DE ESCRITÓRIO (2407)" },
+
+  // ── FRETE S/ COMPRA ──
+  9140: { grupo: "frete_compra", label: "FRETE S/ COMPRA TRANSPORTADOR SN (1352)" },
+  9144: { grupo: "frete_compra", label: "FRETE S/ COMPRA (1352)" },
+
+  // ── FRETE S/ VENDA ──
+  9141: { grupo: "frete_venda", label: "FRETE S/ VENDA TRANSPORTADOR SN (1352)" },
+  9146: { grupo: "frete_venda", label: "FRETE S/ VENDA (1352)" },
+
+  // ── INDIVIDUAIS ──
+  1603: { grupo: "individuais", label: "COMPRA COMBU/LUBR P/ CONSUM FINAL (1653)" },
+  1336: { grupo: "individuais", label: "AQUIS SERV COMUNICACAO P/ EST COM (1303)" },
+  1933: { grupo: "individuais", label: "OUTRA ENTRADA MERCAD/PREST SERVIC (1949)" },
+  1938: { grupo: "individuais", label: "CONTABILIDADE, INCLUSIVE SERVICOS" },
+  9119: { grupo: "individuais", label: "TICKET REFEICAO" },
+  9120: { grupo: "individuais", label: "VIGILANCIA, SEGURANCA OU MONITORAMENTO" },
+  1369: { grupo: "individuais", label: "AQUIS SERV TRANSPORTE P/ ESTAB COM (1353)" },
+  2110: { grupo: "individuais", label: "HOSPITAIS, CLINICAS E LABORATORIOS" },
+  1810: { grupo: "individuais", label: "RETORNO MERC/BEM REM P/ CONSERTO (1916)" },
+  1926: { grupo: "individuais", label: "ENTRADA MERC RECEBIDA VDA À ORDEM (1923)" },
+  1934: { grupo: "individuais", label: "LUBRIFICAÇÃO, LIMPEZA, LUSTRAÇÃO (14.01)" },
+  1943: { grupo: "individuais", label: "LICENCIAMENTO OU CESSÃO C/ RETEN (01.05)" },
+  1946: { grupo: "individuais", label: "INSTRUÇÃO, TREINAMENTO, ORIENTAÇÃO (08.02)" },
+  1951: { grupo: "individuais", label: "DATILOGRAFIA, DIGITAÇÃO, ESTENOGRAFIA (17.02)" },
+  1953: { grupo: "individuais", label: "PROPAGANDA E PUBLICIDADE (17.06)" },
+  1962: { grupo: "individuais", label: "CARPINTARIA E SERRALHERIA (14.13)" },
+  1979: { grupo: "individuais", label: "RECAUCHUTAGEM OU REGENERAÇÃO DE PN (14.04)" },
+  1984: { grupo: "individuais", label: "AGENCIAMENTO, CORRETAGEM (10.02)" },
+  1985: { grupo: "individuais", label: "VARRIÇÃO, COLETA, REMOÇÃO (07.09)" },
+  1988: { grupo: "individuais", label: "ADVOCACIA (17.14)" },
+  1989: { grupo: "individuais", label: "PROCESSAMENTO DE DADOS E ANALISES (17.01)" },
+  1996: { grupo: "individuais", label: "EXECUÇÃO, POR ADMINISTRAÇÃO (07.02)" },
+  2003: { grupo: "individuais", label: "ENGENHARIA, ARQUITETURA (07.01)" },
+  2010: { grupo: "individuais", label: "REPRESENTAÇÃO DE QUALQUER NATUREZA (10.09)" },
+  2107: { grupo: "individuais", label: "TRANSPORTE RODOVIÁRIO DE CARGAS (16.02)" },
+  2118: { grupo: "individuais", label: "INSTALAÇÃO E MONTAGEM DE APARELHOS (14.06)" },
+  6561: { grupo: "individuais", label: "ASSESSORIA E CONSULTORIA EM INFORM (01.06)" },
+  9127: { grupo: "individuais", label: "HONORARIOS ADVOCATICIOS" },
+  9183: { grupo: "individuais", label: "VIGILANCIA, SEGURANÇA OU MONITORAMENTO (11.02)" },
+  9200: { grupo: "individuais", label: "COMPOSIÇÃO GRÁFICA, IMPRESSÃO (13.05.01)" },
+  9201: { grupo: "individuais", label: "SUPORTE TÉC. INFORMÁTICA (01.07.01)" },
+  9202: { grupo: "individuais", label: "MONITORAMENTO E RASTREAMENTO (11.05.01)" },
+  9203: { grupo: "individuais", label: "AGENC./CORRET. DIREITOS (10.03.01)" },
+  9204: { grupo: "individuais", label: "OUTROS PLANOS DE SAUDE (04.23.01)" },
+  9205: { grupo: "individuais", label: "ADMINISTRAÇÃO GERAL DE BENS (17.12.01)" },
+
+  // ── ATIVO IMOBILIZADO ──
+  9170: { grupo: "ativo_imob", label: "COMPRA AT IMOB - CONSTRUÇÃO ANDAM (1551)" },
+  9179: { grupo: "ativo_imob", label: "COMPRA AT IMOB - CONSTRUÇÃO ANDAM (2551)" },
+  9184: { grupo: "ativo_imob", label: "COMPRA AT IMOB - CONSTRUÇÃO ANDAM (1406)" },
+
+  // ── VENDAS (saídas) ──
+  9113: { grupo: "vendas", label: "VENDAS SEM ST - REDUCOES Z (9113)" },
+  9114: { grupo: "vendas", label: "VENDAS COM ST ICMS - REDUCOES Z (9114)" },
+  5101: { grupo: "vendas", label: "VENDA DE PRODUCAO DO ESTABELECIMENTO (5101)" },
+  5102: { grupo: "vendas", label: "VENDA PRODUCAO DO ESTABELECIMENTO (6101)" },
+  5151: { grupo: "vendas", label: "VENDA MERCADORIA ADQ OU RECEBI 3 (5102)" },
+  5404: { grupo: "vendas", label: "VDA MERC ADQ 3 C/ ST SUBSTITUIDO (5405)" },
+  5606: { grupo: "vendas", label: "VENDA COMBUST/LUBRIF CONSUM FINAL (5656)" },
+
+  // ── TRANSFERÊNCIAS SAÍDA ──
+  5702: { grupo: "transf_sai", label: "TRANSFERENCIA MERC ADQ OU RECE 3 (5152)" },
+  5406: { grupo: "transf_sai", label: "TRANSFERENCIA MERCADORIA C/ ST (5409)" },
+  5609: { grupo: "transf_sai", label: "TRANSFERENCIA COMBU/LUBRIF ADQ 3 (5659)" },
+
+  // ── DEVOLUÇÕES SAÍDA ──
+  5251: { grupo: "dev_sai", label: "DEVOLUCAO COMPRA P/ COMERCIALIZAC (5202)" },
+  5252: { grupo: "dev_sai", label: "DEVOLUCAO COMPRA P/ COMERCIALIZAC (6202)" },
+  5408: { grupo: "dev_sai", label: "DEVOLUCAO COMP P/ COMERCIAL C/ ST (5411)" },
 };
 
 const GRUPOS_CONFIG = {
-  materia_prima: { label: "Matéria-Prima / Prod. Rural",   color: "#92400e", bg: "#fffbeb", border: "#fcd34d", secao: "entradas" },
-  compras_merc:  { label: "Compras de Mercadoria",         color: "#1d4ed8", bg: "#eff6ff", border: "#bfdbfe", secao: "entradas" },
-  transf_ent:    { label: "Transferências de Entrada",     color: "#0369a1", bg: "#f0f9ff", border: "#bae6fd", secao: "entradas" },
-  dev_ent:       { label: "Devoluções de Entrada",         color: "#0f766e", bg: "#f0fdfa", border: "#99f6e4", secao: "entradas" },
-  bonus:         { label: "Bonificação",                   color: "#6d28d9", bg: "#faf5ff", border: "#ddd6fe", secao: "entradas" },
-  energia:       { label: "Energia Elétrica",              color: "#b45309", bg: "#fffbeb", border: "#fde68a", secao: "entradas" },
-  uso_consumo:   { label: "Uso e Consumo",                 color: "#065f46", bg: "#ecfdf5", border: "#a7f3d0", secao: "entradas" },
-  individuais:   { label: "Itens Individuais",             color: "#475569", bg: "#f8fafc", border: "#cbd5e1", secao: "entradas" },
-  vendas:        { label: "Vendas",                        color: "#b91c1c", bg: "#fef2f2", border: "#fecaca", secao: "saidas"   },
-  transf_sai:    { label: "Transferências de Saída",       color: "#0369a1", bg: "#f0f9ff", border: "#bae6fd", secao: "saidas"   },
-  dev_sai:       { label: "Devoluções de Saída",           color: "#0f766e", bg: "#f0fdfa", border: "#99f6e4", secao: "saidas"   },
+  materia_prima: { label: "Matéria-Prima / Prod. Rural",    color: "#92400e", bg: "#fffbeb", border: "#fcd34d",  secao: "entradas" },
+  compras_merc:  { label: "Compras de Mercadoria",          color: "#1d4ed8", bg: "#eff6ff", border: "#bfdbfe",  secao: "entradas" },
+  transf_ent:    { label: "Transferências de Entrada",      color: "#0369a1", bg: "#f0f9ff", border: "#bae6fd",  secao: "entradas" },
+  dev_ent:       { label: "Devoluções de Entrada (1201/2201)", color: "#0f766e", bg: "#f0fdfa", border: "#99f6e4", secao: "entradas" },
+  bonus:         { label: "Bonificação",                    color: "#6d28d9", bg: "#faf5ff", border: "#ddd6fe",  secao: "entradas" },
+  energia:       { label: "Energia Elétrica",               color: "#b45309", bg: "#fffbeb", border: "#fde68a",  secao: "entradas" },
+  uso_consumo:   { label: "Uso e Consumo (1407/1556/2556)", color: "#065f46", bg: "#ecfdf5", border: "#a7f3d0",  secao: "entradas" },
+  frete_compra:  { label: "Frete s/ Compra",                color: "#0e7490", bg: "#ecfeff", border: "#a5f3fc",  secao: "entradas" },
+  frete_venda:   { label: "Frete s/ Venda",                 color: "#7c3aed", bg: "#f5f3ff", border: "#c4b5fd",  secao: "entradas" },
+  ativo_imob:    { label: "Ativo Imobilizado",              color: "#1f2937", bg: "#f9fafb", border: "#d1d5db",  secao: "entradas" },
+  individuais:   { label: "Itens Individuais",              color: "#475569", bg: "#f8fafc", border: "#cbd5e1",  secao: "entradas" },
+  vendas:        { label: "Vendas (5101/6101)",              color: "#b91c1c", bg: "#fef2f2", border: "#fecaca",  secao: "saidas"   },
+  transf_sai:    { label: "Transferências de Saída",        color: "#0369a1", bg: "#f0f9ff", border: "#bae6fd",  secao: "saidas"   },
+  dev_sai:       { label: "Devoluções de Saída",            color: "#0f766e", bg: "#f0fdfa", border: "#99f6e4",  secao: "saidas"   },
 };
 
-const ORDEM_ENTRADAS = ["materia_prima","compras_merc","transf_ent","dev_ent","bonus","energia","uso_consumo","individuais"];
+const ORDEM_ENTRADAS = ["materia_prima","compras_merc","transf_ent","dev_ent","bonus","energia","uso_consumo","frete_compra","frete_venda","ativo_imob","individuais"];
 const ORDEM_SAIDAS   = ["vendas","transf_sai","dev_sai"];
 
 function parseSheet(workbook) {
@@ -80,13 +173,26 @@ function parseSheet(workbook) {
       if (dates && dates.length >= 2) {
         const fmtDate = (d) => { const [y, m] = d.split("-"); return `${String(m).padStart(2,"0")}/${y}`; };
         periodo = `${fmtDate(dates[0])} a ${fmtDate(dates[1])}`;
+      } else {
+        // Try Excel serial dates
+        const nums = joined.match(/\b\d{5}\b/g);
+        if (nums && nums.length >= 2) {
+          const excelToDate = (serial) => {
+            const d = new Date((serial - 25569) * 86400 * 1000);
+            return `${String(d.getUTCMonth()+1).padStart(2,"0")}/${d.getUTCFullYear()}`;
+          };
+          periodo = `${excelToDate(parseInt(nums[0]))} a ${excelToDate(parseInt(nums[nums.length-1]))}`;
+        }
       }
     }
   }
   const grupos = {};
   for (const row of rows) {
-    const acum = parseInt(String(row[0] ?? ""), 10);
+    const raw0 = row[0];
+    if (raw0 == null) continue;
+    const acum = parseInt(String(raw0), 10);
     if (isNaN(acum)) continue;
+    // value is in col9
     const raw9 = row[9];
     let valor = 0;
     if (raw9 != null) valor = typeof raw9 === "number" ? raw9 : parseFloat(String(raw9).replace(",", "."));
@@ -147,7 +253,6 @@ function SectionCard({ gid, items, defaultOpen }) {
   );
 }
 
-/* ─── UploadScreen com efeito Neon Glass ──────────────────────── */
 function UploadScreen({ onData }) {
   const [drag, setDrag] = useState(false);
   const [erro, setErro] = useState("");
@@ -187,8 +292,7 @@ function UploadScreen({ onData }) {
       background: "radial-gradient(ellipse at 30% 20%, hsl(215 60% 7%) 0%, hsl(210 50% 4%) 60%, hsl(210 30% 2%) 100%)",
       display: "flex", alignItems: "center", justifyContent: "center", padding: 24,
     }}>
-      <style>{`    
-
+      <style>{`
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(16px); }
           to   { opacity: 1; transform: translateY(0); }
@@ -198,120 +302,61 @@ function UploadScreen({ onData }) {
           40%    { content: ".."; }
           60%,100% { content: "..."; }
         }
-
         .upload-title { animation: fadeUp 0.8s cubic-bezier(0.5,1,0.89,1) both; }
         .upload-sub   { animation: fadeUp 0.8s 0.15s cubic-bezier(0.5,1,0.89,1) both; }
         .upload-drop  { animation: fadeUp 0.8s 0.3s cubic-bezier(0.5,1,0.89,1) both; }
-
-        /* ── borda estática neon igual à screenshot ── */
         .neon-ring {
           position: absolute;
           inset: -1.5px;
           border-radius: 22px;
           padding: 1.5px;
-          /* borda completa escura + pico de luz nos dois cantos */
           background: conic-gradient(
             from 0deg,
-            transparent                0%,
-            transparent               20%,
-            hsl(210 80% 45% / 0.3)    23%,
-            hsl(205 90% 70%)          26%,
-            hsl(200 100% 85%)         28%,
-            hsl(205 90% 70%)          30%,
-            hsl(210 80% 45% / 0.3)    33%,
-            transparent               36%,
-            transparent               70%,
-            hsl(210 80% 45% / 0.3)    73%,
-            hsl(205 90% 70%)          76%,
-            hsl(200 100% 85%)         78%,
-            hsl(205 90% 70%)          80%,
-            hsl(210 80% 45% / 0.3)    83%,
-            transparent               86%,
-            transparent              100%
+            transparent 0%, transparent 20%,
+            hsl(210 80% 45% / 0.3) 23%, hsl(205 90% 70%) 26%, hsl(200 100% 85%) 28%, hsl(205 90% 70%) 30%, hsl(210 80% 45% / 0.3) 33%,
+            transparent 36%, transparent 70%,
+            hsl(210 80% 45% / 0.3) 73%, hsl(205 90% 70%) 76%, hsl(200 100% 85%) 78%, hsl(205 90% 70%) 80%, hsl(210 80% 45% / 0.3) 83%,
+            transparent 86%, transparent 100%
           );
           -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
           -webkit-mask-composite: xor;
           mask-composite: exclude;
-          opacity: 1;
         }
-
         .drop-inner {
-          position: relative;
-          border-radius: 20px;
+          position: relative; border-radius: 20px;
           background: linear-gradient(135deg, hsl(210 50% 9% / 0.9), hsl(210 40% 6% / 0.95));
-          backdrop-filter: blur(16px);
-          padding: 52px 40px;
-          cursor: pointer;
+          backdrop-filter: blur(16px); padding: 52px 40px; cursor: pointer;
           transition: all 0.3s cubic-bezier(0.5,1,0.89,1);
-          border: 1px solid hsl(210 40% 20% / 0.4);
-          overflow: hidden;
+          border: 1px solid hsl(210 40% 20% / 0.4); overflow: hidden;
         }
         .drop-inner:hover, .drop-inner.drag {
           background: linear-gradient(135deg, hsl(210 50% 12% / 0.92), hsl(210 40% 9% / 0.97));
           border-color: hsl(205 80% 50% / 0.35);
         }
-        .drop-icon {
-          font-size: 52px;
-          display: block;
-          margin-bottom: 18px;
-          
-          transition: transform 0.3s ease;
-        }
-        .drop-inner:hover .drop-icon { transform: scale(1.08); }
-        .drop-text {
-          color: hsl(210 30% 78%);
-          font-size: 15px;
-          font-weight: 600;
-          letter-spacing: 0.01em;
-        }
+        .drop-text { color: hsl(210 30% 78%); font-size: 15px; font-weight: 600; letter-spacing: 0.01em; }
         .drop-text.active { color: hsl(200 80% 70%); }
-        .drop-hint {
-          color: hsl(210 20% 42%);
-          font-size: 12px;
-          margin-top: 8px;
-          letter-spacing: 0.05em;
-        }
-        .loading-text::after {
-          content: "...";
-          animation: dots 1.2s steps(3, end) infinite;
-        }
+        .drop-hint { color: hsl(210 20% 42%); font-size: 12px; margin-top: 8px; letter-spacing: 0.05em; }
+        .loading-text::after { content: "..."; animation: dots 1.2s steps(3, end) infinite; }
       `}</style>
 
       <div style={{ maxWidth: 480, width: "100%", textAlign: "center" }}>
-
-        {/* Header */}
         <div className="upload-title" style={{ marginBottom: 40 }}>
           <img
             src="https://escmodelo.com.br/wp-content/uploads/2023/06/Logo-Modelo-Sem-fundo.png"
             alt="Modelo Serviços Contábeis"
-            style={{
-              maxWidth: 220, width: "100%", height: "auto",
-              display: "block", margin: "0 auto 20px",
-              
-            }}
+            style={{ maxWidth: 220, width: "100%", height: "auto", display: "block", margin: "0 auto 20px" }}
           />
-          <div style={{
-            fontSize: 11, letterSpacing: "0.3em", fontWeight: 700, textTransform: "uppercase",
-            marginBottom: 10,
-            color: "rgb(56, 189, 248)",
-          }}>
+          <div style={{ fontSize: 11, letterSpacing: "0.3em", fontWeight: 700, textTransform: "uppercase", marginBottom: 10, color: "rgb(56, 189, 248)" }}>
             Análise Contábil
           </div>
-          <h1 style={{
-            margin: 0, lineHeight: 1.15, fontWeight: 900, fontSize: 32,
-            color: "#e8eef4",
-          }}>
+          <h1 style={{ margin: 0, lineHeight: 1.15, fontWeight: 900, fontSize: 32, color: "#e8eef4" }}>
             Resumo por Acumulador
           </h1>
         </div>
 
-        {/* Drop Zone */}
         <div className="upload-drop" style={{ position: "relative", marginBottom: 20 }}>
-          {/* Spinning border */}
           <div className="neon-ring" />
-
-           {/* Inner card */}
-           <div
+          <div
             className={`drop-inner${drag ? " drag" : ""}`}
             onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
             onDragLeave={() => setDrag(false)}
@@ -320,29 +365,22 @@ function UploadScreen({ onData }) {
           >
             {loading ? (
               <>
-                <svg style={{ width: 44, height: 44, marginBottom: 18, display: "block", margin: "0 auto 18px", animation: "spin-svg 1.2s linear infinite" }} viewBox="0 0 24 24" fill="none" stroke="hsl(205 80% 65%)" strokeWidth="1.5" strokeLinecap="round">
+                <svg style={{ width: 44, height: 44, marginBottom: 18, display: "block", margin: "0 auto 18px" }} viewBox="0 0 24 24" fill="none" stroke="hsl(205 80% 65%)" strokeWidth="1.5" strokeLinecap="round">
                   <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
                 </svg>
-                <div className="drop-text active">
-                  <span className="loading-text">Processando planilha</span>
-                </div>
+                <div className="drop-text active"><span className="loading-text">Processando planilha</span></div>
                 <div className="drop-hint">aguarde um momento</div>
               </>
             ) : (
               <>
                 {drag ? (
-                  <svg style={{ width: 44, height: 44, marginBottom: 18, display: "block", margin: "0 auto 18px" }} viewBox="0 0 24 24" fill="none" stroke="hsl(205 80% 70%)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M3 15v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4"/>
-                    <polyline points="17 8 12 3 7 8"/>
-                    <line x1="12" y1="3" x2="12" y2="15"/>
+                  <svg style={{ width: 44, height: 44, display: "block", margin: "0 auto 18px" }} viewBox="0 0 24 24" fill="none" stroke="hsl(205 80% 70%)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 15v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
                   </svg>
                 ) : (
-                  <svg style={{ width: 44, height: 44, marginBottom: 18, display: "block", margin: "0 auto 18px" }} viewBox="0 0 24 24" fill="none" stroke="hsl(205 60% 58%)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <polyline points="14 2 14 8 20 8"/>
-                    <line x1="16" y1="13" x2="8" y2="13"/>
-                    <line x1="16" y1="17" x2="8" y2="17"/>
-                    <line x1="10" y1="9" x2="8" y2="9"/>
+                  <svg style={{ width: 44, height: 44, display: "block", margin: "0 auto 18px" }} viewBox="0 0 24 24" fill="none" stroke="hsl(205 60% 58%)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/>
                   </svg>
                 )}
                 <div className={`drop-text${drag ? " active" : ""}`}>
@@ -357,8 +395,6 @@ function UploadScreen({ onData }) {
         <input ref={inputRef} type="file" accept=".xls,.xlsx" style={{ display: "none" }}
           onChange={(e) => processar(e.target.files[0])} />
 
-
-        {/* Subtítulo abaixo */}
         <div className="upload-sub" style={{ color: "hsl(205deg 68% 95% / 48%)", fontSize: 13, marginTop: 8, lineHeight: 1.6 }}>
           Planilha <strong style={{ color: "hsl(205deg 68% 95% / 48%)" }}>Resumo por Acumulador</strong> exportada do sistema fiscal
         </div>
@@ -377,7 +413,6 @@ function UploadScreen({ onData }) {
   );
 }
 
-/* ─── Dashboard ───────────────────────────────────────────────── */
 function Dashboard({ data, fileName, onReset }) {
   const { empresa, cnpj, periodo, grupos } = data;
   const somaGrupo = (gid) => (grupos[gid] || []).reduce((s, i) => s + i.valor, 0);
@@ -386,11 +421,11 @@ function Dashboard({ data, fileName, onReset }) {
   const diff     = totalEnt - totalSai;
 
   const kpis = [
-    { label: "Total Entradas",              value: totalEnt,                                                                   color: "#1d4ed8", bg: "#eff6ff" },
-    { label: "Compras + Transf + Bonif",    value: somaGrupo("compras_merc") + somaGrupo("transf_ent") + somaGrupo("bonus"),   color: "#6d28d9", bg: "#faf5ff" },
-    { label: "Matéria-Prima / Prod. Rural", value: somaGrupo("materia_prima"),                                                 color: "#92400e", bg: "#fffbeb" },
-    { label: "Total Vendas",                value: somaGrupo("vendas"),                                                        color: "#b91c1c", bg: "#fef2f2" },
-    { label: "Total Saídas",                value: totalSai,                                                                   color: "#0f172a", bg: "#f8fafc" },
+    { label: "Total Entradas",              value: totalEnt,                                                                    color: "#1d4ed8", bg: "#eff6ff" },
+    { label: "Compras + Transf + Bonif",    value: somaGrupo("compras_merc") + somaGrupo("transf_ent") + somaGrupo("bonus"),    color: "#6d28d9", bg: "#faf5ff" },
+    { label: "Matéria-Prima / Prod. Rural", value: somaGrupo("materia_prima"),                                                  color: "#92400e", bg: "#fffbeb" },
+    { label: "Total Vendas",                value: somaGrupo("vendas"),                                                         color: "#b91c1c", bg: "#fef2f2" },
+    { label: "Total Saídas",                value: totalSai,                                                                    color: "#0f172a", bg: "#f8fafc" },
   ];
 
   return (
@@ -429,7 +464,7 @@ function Dashboard({ data, fileName, onReset }) {
             <span style={{ fontWeight: 800, color: "#1d4ed8", fontSize: 15 }}>{fmt(totalEnt)}</span>
           </div>
           {ORDEM_ENTRADAS.filter(gid => (grupos[gid] || []).length > 0).map(gid => (
-            <SectionCard key={gid} gid={gid} items={grupos[gid]} defaultOpen={gid === "compras_merc"} />
+            <SectionCard key={gid} gid={gid} items={grupos[gid]} defaultOpen={gid === "materia_prima"} />
           ))}
         </div>
 
