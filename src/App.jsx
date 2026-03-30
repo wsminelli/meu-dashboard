@@ -11,6 +11,7 @@ const MAPA = {
   5:    { grupo: "materia_prima", label: "COMPRA P/ INDUSTRIA - INSUMOS (1101)" },
   6:    { grupo: "materia_prima", label: "COMPRA P/ INDUSTRIA - INSUMOS (2101)" },
   1101: { grupo: "materia_prima", label: "AQUISICAO DE PROD RURAL - PJ (1101)" },
+  1401: { grupo: "materia_prima", label: "COMPRA P/ IND OU PROD RURAL C/ ST (1401)" },
 
   // ── COMPRAS DE MERCADORIA ──
   1151: { grupo: "compras_merc", label: "COMPRA PARA COMERCIALIZACAO (1102)" },
