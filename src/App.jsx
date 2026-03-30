@@ -18,6 +18,7 @@ const MAPA = {
   1152: { grupo: "compras_merc", label: "COMPRA P/ COMERCIALIZACAO (2102)" },
   1402: { grupo: "compras_merc", label: "COMPRA P/ COMERCIALIZACAO C/ ST (1403)" },
   9118: { grupo: "compras_merc", label: "AQUISICAO DE PRODUTOR RURAL (R-2055)" },
+  1602: { grupo: "compras_merc", label: "COMPRA COMBUSTIV OU LUBRIF P/ COM (1652)" },
 
   // ── TRANSFERÊNCIAS ENTRADA ──
   1702: { grupo: "transf_ent", label: "TRANSFERENCIA P/ COMERCIALIZACAO (1152)" },
