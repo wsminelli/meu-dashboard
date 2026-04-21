@@ -141,6 +141,8 @@ const MAPA = {
   5151: { grupo: "vendas",        label: "VENDA MERCADORIA ADQ OU RECEBI 3 (5102)" },
   5404: { grupo: "vendas",        label: "VDA MERC ADQ 3 C/ ST SUBSTITUIDO (5405)" },
   5606: { grupo: "vendas",        label: "VENDA COMBUST/LUBRIF CONSUM FINAL (5656)" },
+  6102: { grupo: "vendas",        label: "VENDA MERCADORIA CONTRIBUINTE (6102)" },
+  5106: { grupo: "vendas",        label: "VENDA MERCADOR NÃO DEVA TRANSITAR (5106)" },
 
   // ── TRANSFERÊNCIAS SAÍDA ──
   5702: { grupo: "transf_sai",    label: "TRANSFERENCIA MERC ADQ OU RECE 3 (5152)" },
