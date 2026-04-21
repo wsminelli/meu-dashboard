@@ -182,7 +182,7 @@ const GRUPOS_CONFIG = {
   ativo_imob:     { label: "Ativo Imobilizado",                  color: "#1f2937", bg: "#f9fafb", border: "#d1d5db", secao: "entradas" },
   individuais:    { label: "Itens Individuais",                   color: "#475569", bg: "#f8fafc", border: "#cbd5e1", secao: "entradas" },
 
-  vendas:         { label: "Vendas (5101 / 6101)",               color: "#b91c1c", bg: "#fef2f2", border: "#fecaca", secao: "saidas" },
+  vendas:         { label: "Vendas",               color: "#b91c1c", bg: "#fef2f2", border: "#fecaca", secao: "saidas" },
   transf_sai:     { label: "Transferências de Saída",            color: "#0369a1", bg: "#f0f9ff", border: "#bae6fd", secao: "saidas" },
   dev_sai:        { label: "Devoluções de Saída",                color: "#0f766e", bg: "#f0fdfa", border: "#99f6e4", secao: "saidas" },
 };
